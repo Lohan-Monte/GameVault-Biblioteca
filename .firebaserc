@@ -1,6 +1,7 @@
 {
   "projects": {
-    "Gamevault": "bibliotecagamevault"
+    "Gamevault": "bibliotecagamevault",
+    "gamevault": "bibliotecagamevault"
   },
   "targets": {},
   "etags": {}
