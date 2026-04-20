@@ -133,6 +133,13 @@ const css = `
     box-shadow: 0 2px 12px #6c63ff33;
   }
 
+  /* ── SECTION CONTENT ANIMATION ── */
+  @keyframes sectionIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .section-content { animation: sectionIn 0.22s ease forwards; }
+
   /* ── HAMBURGER ── */
   .hamburger {
     width: 40px; height: 40px; border-radius: 10px;
@@ -153,7 +160,7 @@ const css = `
   .drawer-close { width: 32px; height: 32px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
   .drawer-body { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 6px; }
   .drawer-footer { padding: 16px; border-top: 1px solid var(--border); }
-  .drawer-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; cursor: pointer; transition: all 0.15s; font-size: 15px; font-weight: 600; color: var(--text); background: none; border: none; width: 100%; text-align: left; }
+  .drawer-item { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-radius: 8px; cursor: pointer; transition: all 0.15s; font-size: 14px; font-weight: 600; letter-spacing: 0.1px; color: var(--text); background: none; border: none; width: 100%; text-align: left; }
   .drawer-item:hover { background: var(--surface2); color: var(--accent2); }
   .drawer-item .di-icon { font-size: 14px; width: 24px; text-align: center; }
   .drawer-separator { height: 1px; background: var(--border); margin: 8px 0; }
@@ -210,38 +217,56 @@ const css = `
   .filter-select:focus { outline: none; border-color: var(--accent); }
 
   /* ── CONTENT GRID (games & movies) ── */
-  .content-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+  .content-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
 
   /* ── CARD ── */
   .content-card {
-    background: var(--surface); border: 1px solid var(--border);
+    background: var(--surface2); border: 1px solid var(--border);
     border-radius: var(--radius-lg); overflow: hidden;
-    cursor: pointer; transition: all 0.2s; position: relative;
-    display: flex; flex-direction: column;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    position: relative; display: flex; flex-direction: column;
+    box-shadow: 0 4px 16px #00000050;
   }
-  .content-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 16px 48px #00000070, 0 0 0 1px var(--accent-glow); }
-  .content-card.film-card:hover { border-color: var(--accent-film); box-shadow: 0 16px 48px #00000070, 0 0 0 1px #6c63ff33; }
-  .card-img { width: 100%; height: 180px; object-fit: cover; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 48px; overflow: hidden; flex-shrink: 0; }
-  .card-img img { width: 100%; height: 100%; object-fit: cover; }
-  .card-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-  .card-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; line-height: 1.3; letter-spacing: -0.2px; }
+  .content-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 20px 56px #00000090, 0 0 0 1px var(--accent-glow); }
+  .content-card.film-card:hover { border-color: var(--accent-film); box-shadow: 0 20px 56px #00000090, 0 0 0 1px #6c63ff44; }
+
+  /* Poster image — full portrait, no crop */
+  .card-img {
+    width: 100%; aspect-ratio: 2 / 3;
+    background: var(--surface3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 56px; overflow: hidden; flex-shrink: 0;
+  }
+  .card-img img { width: 100%; height: 100%; object-fit: contain; background: var(--surface3); }
+
+  .card-body { padding: 14px 14px 14px; display: flex; flex-direction: column; gap: 7px; flex: 1; background: var(--surface2); }
+  .card-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; line-height: 1.3; letter-spacing: -0.2px; }
   .card-meta { font-size: 12px; color: var(--muted); }
   .card-footer {
     display: flex; align-items: center; justify-content: space-between;
-    margin-top: auto; padding-top: 12px;
+    margin-top: auto; padding-top: 10px;
     border-top: 1px solid var(--border);
   }
   .card-score-block { display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .card-review-count { font-size: 11px; color: var(--muted); font-weight: 600; text-align: center; }
-  .card-platforms { font-size: 11px; color: var(--muted); text-align: right; max-width: 130px; line-height: 1.4; }
+  .card-platforms { font-size: 11px; color: var(--muted); text-align: right; max-width: 120px; line-height: 1.4; }
 
   /* ── SCORE BADGES ── */
   .score-badge { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 18px; font-weight: 800; border: 2px solid; letter-spacing: -0.5px; }
   .score-big { display: inline-flex; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: 14px; font-family: var(--font-display); font-size: 28px; font-weight: 800; border: 3px solid; margin-right: 16px; flex-shrink: 0; letter-spacing: -1px; }
 
   /* ── CATEGORY / GENRE TAG ── */
-  .category-tag { display: inline-block; width: fit-content; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 9px; border-radius: 20px; background: var(--accent-glow); color: var(--accent2); border: 1px solid var(--accent); }
-  .genre-tag { display: inline-block; width: fit-content; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 9px; border-radius: 20px; background: #6c63ff22; color: var(--accent-film2); border: 1px solid #6c63ff55; }
+  /* tag base */
+  .category-tag, .genre-tag {
+    display: inline-block; width: fit-content;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px; padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .category-tag { background: #ffffff0d; color: #a0a0c0; border: 1px solid #3a3d58; }
+  .genre-tag    { background: #ffffff0d; color: #9090b8; border: 1px solid #383555; }
+  /* tag list wrapper for multiple tags */
+  .tag-list { display: flex; flex-wrap: wrap; gap: 4px; }
 
   /* ── FLAG ── */
   .flag-disabled { position: absolute; top: 8px; right: 8px; background: #0008; border: 1px solid #ff4b6e55; color: var(--red); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
@@ -564,10 +589,10 @@ function HamburgerDrawer({ open, onClose, currentUser, userProfile, onLogout, on
                 </div>
               </div>
               <div className="drawer-separator" />
-              <button className="drawer-item" onClick={() => { onChangePw(); onClose(); }}><span className="di-icon">—</span> Alterar senha</button>
-              {isAdmin && <button className="drawer-item" onClick={() => { onAdmin(); onClose(); }}><span className="di-icon">—</span> Painel de Administração</button>}
+              <button className="drawer-item" onClick={() => { onChangePw(); onClose(); }}>Alterar senha</button>
+              {isAdmin && <button className="drawer-item" onClick={() => { onAdmin(); onClose(); }}>Painel de Administração</button>}
               <div className="drawer-separator" />
-              <button className="drawer-item" style={{ color: "var(--red)" }} onClick={() => { onLogout(); onClose(); }}><span className="di-icon">—</span> Sair da conta</button>
+              <button className="drawer-item" style={{ color: "var(--red)" }} onClick={() => { onLogout(); onClose(); }}>Sair da conta</button>
             </>
           )}
           {!currentUser && <div style={{ color: "var(--muted)", fontSize: 14, padding: "12px 14px" }}>Faça login para acessar o menu.</div>}
@@ -583,9 +608,11 @@ function HamburgerDrawer({ open, onClose, currentUser, userProfile, onLogout, on
 // ─────────────────────────────────────────────
 
 function GameFormModal({ game, categories, platforms, onClose, onSave, toast }) {
+  const toArr = (v) => Array.isArray(v) ? v : (v ? [v] : []);
   const [form, setForm] = useState({
     title: game?.title || "", description: game?.description || "",
-    category: game?.category || "", developer: game?.developer || "",
+    categories: toArr(game?.categories || game?.category),
+    developer: game?.developer || "",
     publisher: game?.publisher || "", releaseYear: game?.releaseYear || new Date().getFullYear(),
     platforms: game?.platforms || [], image: game?.image || "",
   });
@@ -596,11 +623,16 @@ function GameFormModal({ game, categories, platforms, onClose, onSave, toast }) 
   const togglePlatform = (name) => setForm(f => ({
     ...f, platforms: f.platforms.includes(name) ? f.platforms.filter(x => x !== name) : [...f.platforms, name],
   }));
+  const toggleCategory = (name) => setForm(f => ({
+    ...f, categories: f.categories.includes(name) ? f.categories.filter(x => x !== name) : [...f.categories, name],
+  }));
 
   async function handleSubmit() {
     if (!form.title.trim()) { toast.show("Título obrigatório", "error"); return; }
     setSaving(true);
-    try { await onSave(form, imageFile); onClose(); }
+    // keep backward compat: also set category = first category
+    const saveData = { ...form, category: form.categories[0] || "" };
+    try { await onSave(saveData, imageFile); onClose(); }
     catch (e) { toast.show("Erro: " + e.message, "error"); }
     finally { setSaving(false); }
   }
@@ -610,9 +642,15 @@ function GameFormModal({ game, categories, platforms, onClose, onSave, toast }) 
       <div className="modal" onClick={e => e.stopPropagation()}>
         <div className="modal-title">{game ? "Editar Jogo" : "Novo Jogo"}<button className="modal-close" onClick={onClose}>×</button></div>
         <div className="form-group" style={{ marginBottom: 12 }}><label className="form-label">Título *</label><input className="form-input" value={form.title} onChange={e => set("title", e.target.value)} /></div>
-        <div className="form-row">
-          <div className="form-group"><label className="form-label">Categoria</label><select className="form-select" value={form.category} onChange={e => set("category", e.target.value)}><option value="">Selecione...</option>{categories.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}</select></div>
-          <div className="form-group"><label className="form-label">Ano</label><input className="form-input" type="number" value={form.releaseYear} onChange={e => set("releaseYear", Number(e.target.value))} /></div>
+        <div className="form-group" style={{ marginBottom: 12 }}>
+          <label className="form-label">Categorias</label>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {categories.map(cat => <button key={cat.id} type="button" className={`btn btn-sm ${form.categories.includes(cat.name) ? "btn-primary" : "btn-secondary"}`} onClick={() => toggleCategory(cat.name)}>{cat.name}</button>)}
+          </div>
+        </div>
+        <div className="form-group" style={{ marginBottom: 12 }}>
+          <label className="form-label">Ano</label>
+          <input className="form-input" type="number" value={form.releaseYear} onChange={e => set("releaseYear", Number(e.target.value))} />
         </div>
         <div className="form-row">
           <div className="form-group"><label className="form-label">Desenvolvedor</label><input className="form-input" value={form.developer} onChange={e => set("developer", e.target.value)} /></div>
@@ -641,20 +679,26 @@ function GameFormModal({ game, categories, platforms, onClose, onSave, toast }) 
 // ─────────────────────────────────────────────
 
 function MovieFormModal({ movie, genres, onClose, onSave, toast }) {
+  const toArr = (v) => Array.isArray(v) ? v : (v ? [v] : []);
   const [form, setForm] = useState({
     title: movie?.title || "", synopsis: movie?.synopsis || "",
     director: movie?.director || "", writer: movie?.writer || "",
-    genre: movie?.genre || "", releaseYear: movie?.releaseYear || new Date().getFullYear(),
+    genres: toArr(movie?.genres || movie?.genre),
+    releaseYear: movie?.releaseYear || new Date().getFullYear(),
     image: movie?.image || "",
   });
   const [imageFile, setImageFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const toggleGenre = (name) => setForm(f => ({
+    ...f, genres: f.genres.includes(name) ? f.genres.filter(x => x !== name) : [...f.genres, name],
+  }));
 
   async function handleSubmit() {
     if (!form.title.trim()) { toast.show("Título obrigatório", "error"); return; }
     setSaving(true);
-    try { await onSave(form, imageFile); onClose(); }
+    const saveData = { ...form, genre: form.genres[0] || "" };
+    try { await onSave(saveData, imageFile); onClose(); }
     catch (e) { toast.show("Erro: " + e.message, "error"); }
     finally { setSaving(false); }
   }
@@ -668,9 +712,15 @@ function MovieFormModal({ movie, genres, onClose, onSave, toast }) {
           <div className="form-group"><label className="form-label">Dirigido por</label><input className="form-input" value={form.director} onChange={e => set("director", e.target.value)} /></div>
           <div className="form-group"><label className="form-label">Escrito por</label><input className="form-input" value={form.writer} onChange={e => set("writer", e.target.value)} /></div>
         </div>
-        <div className="form-row">
-          <div className="form-group"><label className="form-label">Gênero</label><select className="form-select" value={form.genre} onChange={e => set("genre", e.target.value)}><option value="">Selecione...</option>{genres.map(g => <option key={g.id} value={g.name}>{g.name}</option>)}</select></div>
-          <div className="form-group"><label className="form-label">Ano</label><input className="form-input" type="number" value={form.releaseYear} onChange={e => set("releaseYear", Number(e.target.value))} /></div>
+        <div className="form-group" style={{ marginBottom: 12 }}>
+          <label className="form-label">Gêneros</label>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {genres.map(g => <button key={g.id} type="button" className={`btn btn-sm ${form.genres.includes(g.name) ? "btn-primary-film" : "btn-secondary"}`} onClick={() => toggleGenre(g.name)}>{g.name}</button>)}
+          </div>
+        </div>
+        <div className="form-group" style={{ marginBottom: 12 }}>
+          <label className="form-label">Ano</label>
+          <input className="form-input" type="number" value={form.releaseYear} onChange={e => set("releaseYear", Number(e.target.value))} />
         </div>
         <div className="form-group" style={{ marginBottom: 12 }}><label className="form-label">Sinopse</label><textarea className="form-textarea" value={form.synopsis} onChange={e => set("synopsis", e.target.value)} /></div>
         <div className="form-group" style={{ marginBottom: 12 }}><label className="form-label">Upload de imagem (capa)</label><input type="file" accept="image/*" style={{ color: "var(--text)", fontSize: 13 }} onChange={e => setImageFile(e.target.files[0])} /></div>
@@ -753,7 +803,11 @@ function GameDetailPage({ game, currentUser, userProfile, onBack, onDataChange, 
         <div className="detail-img">{game.image ? <img src={game.image} alt={game.title} /> : "🎮"}</div>
         <div>
           {isAdmin && <div style={{ fontSize: 11, color: "var(--muted)", fontFamily: "monospace", marginBottom: 6 }}>ID: {game.id}</div>}
-          {game.category && <span className="category-tag">{game.category}</span>}
+          {(game.categories?.length || game.category) && (
+            <div className="tag-list" style={{ marginBottom: 8 }}>
+              {(game.categories || [game.category]).filter(Boolean).map(t => <span key={t} className="category-tag">{t}</span>)}
+            </div>
+          )}
           <div className="detail-title" style={{ marginTop: 8 }}>{game.title}</div>
           <div className="detail-meta">{game.developer}{game.publisher ? ` · ${game.publisher}` : ""}{game.releaseYear ? ` · ${game.releaseYear}` : ""}</div>
           <div style={{ display: "flex", alignItems: "center", marginBottom: 16 }}>
@@ -894,7 +948,11 @@ function MovieDetailPage({ movie, currentUser, userProfile, onBack, onDataChange
         <div className="detail-img">{movie.image ? <img src={movie.image} alt={movie.title} /> : "🎬"}</div>
         <div>
           {isAdmin && <div style={{ fontSize: 11, color: "var(--muted)", fontFamily: "monospace", marginBottom: 6 }}>ID: {movie.id}</div>}
-          {movie.genre && <span className="genre-tag">{movie.genre}</span>}
+          {(movie.genres?.length || movie.genre) && (
+            <div className="tag-list" style={{ marginBottom: 8 }}>
+              {(movie.genres || [movie.genre]).filter(Boolean).map(t => <span key={t} className="genre-tag">{t}</span>)}
+            </div>
+          )}
           <div className="detail-title" style={{ marginTop: 8 }}>{movie.title}</div>
           <div className="detail-meta" style={{ cursor: "text", userSelect: "text" }}>
             {movie.director && <span>Direção: {movie.director}</span>}
@@ -1424,7 +1482,7 @@ export default function App() {
 
             {/* GAMES SECTION */}
             {section === "games" && (
-              <>
+              <div key="games" className="section-content">
                 <div className="filters">
                   <input className="search-input" placeholder="Buscar jogo..." value={search} onChange={e => setSearch(e.target.value)} />
                   <select className="filter-select" value={filterCat} onChange={e => setFilterCat(e.target.value)}><option value="">Todas as categorias</option>{categories.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}</select>
@@ -1443,7 +1501,11 @@ export default function App() {
                           <div className="card-img">{game.image ? <img src={game.image} alt={game.title} /> : "🎮"}</div>
                           <div className="card-body">
                             
-                            {game.category && <span className="category-tag">{game.category}</span>}
+                            {(game.categories?.length || game.category) && (
+                              <div className="tag-list">
+                                {(game.categories || [game.category]).filter(Boolean).map(t => <span key={t} className="category-tag">{t}</span>)}
+                              </div>
+                            )}
                             <div className="card-title">{game.title}</div>
                             <div className="card-meta">{game.developer}{game.releaseYear ? ` · ${game.releaseYear}` : ""}</div>
                             <div className="card-footer">
@@ -1459,12 +1521,12 @@ export default function App() {
                     })}
                   </div>
                 )}
-              </>
+              </div>
             )}
 
             {/* MOVIES SECTION */}
             {section === "movies" && (
-              <>
+              <div key="movies" className="section-content">
                 <div className="filters">
                   <input className="search-input" placeholder="Buscar filme..." value={search} onChange={e => setSearch(e.target.value)} />
                   <select className="filter-select" value={filterGenre} onChange={e => setFilterGenre(e.target.value)}><option value="">Todos os gêneros</option>{genres.map(g => <option key={g.id} value={g.name}>{g.name}</option>)}</select>
@@ -1481,7 +1543,11 @@ export default function App() {
                           <div className="card-img">{movie.image ? <img src={movie.image} alt={movie.title} /> : "🎬"}</div>
                           <div className="card-body">
                             
-                            {movie.genre && <span className="genre-tag">{movie.genre}</span>}
+                            {(movie.genres?.length || movie.genre) && (
+                              <div className="tag-list">
+                                {(movie.genres || [movie.genre]).filter(Boolean).map(t => <span key={t} className="genre-tag">{t}</span>)}
+                              </div>
+                            )}
                             <div className="card-title">{movie.title}</div>
                             <div className="card-meta">{movie.director ? `Dir. ${movie.director}` : ""}{movie.releaseYear ? ` · ${movie.releaseYear}` : ""}</div>
                             <div className="card-footer">
@@ -1496,7 +1562,7 @@ export default function App() {
                     })}
                   </div>
                 )}
-              </>
+              </div>
             )}
           </>
         )}
