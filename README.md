@@ -1,4 +1,7 @@
-# 🎮 GameVault — Biblioteca Online de Videogames
+Lohan Vieira Monte - 25416
+Pedro Matos Anselmo - 25277
+
+ 🎮 GameVault — Biblioteca Online de Videogames
 
 Plataforma inspirada no Metacritic para descobrir e avaliar videogames.
 **Stack**: React 18 + Firebase (Auth, Firestore, Storage, Hosting)
